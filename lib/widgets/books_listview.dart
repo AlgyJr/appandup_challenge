@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../utils/providers/books_provider.dart';
+import '../utils/services/book_service.dart';
+import '../models/book.dart';
 import 'book_item.dart';
 
 class BooksListView extends StatelessWidget {
-  const BooksListView({
-    Key? key,
-  }) : super(key: key);
+  const BooksListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final List<Book> books = Provider.of<BooksProvider>(context).books;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: Column(
@@ -28,11 +32,15 @@ class BooksListView extends StatelessWidget {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
-              return const BookItem();
+              return BookItem(
+                key: ValueKey(books[index].id),
+                book: books[index],
+              );
             },
             separatorBuilder: (context, index) => const SizedBox(height: 25.0),
-            itemCount: 5,
+            itemCount: books.length,
           ),
+          const SizedBox(height: 25.0),
         ],
       ),
     );

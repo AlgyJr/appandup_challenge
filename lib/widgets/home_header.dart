@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/book.dart';
+import '../utils/services/book_service.dart';
+import '../utils/providers/books_provider.dart';
 
 class HomeHeader extends StatelessWidget {
-  HomeHeader({Key? key}) : super(key: key);
-
-  final TextEditingController searchController = TextEditingController();
+  const HomeHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,17 @@ class HomeHeader extends StatelessWidget {
               child: Center(
                 child: TextField(
                   textCapitalization: TextCapitalization.sentences,
-                  controller: searchController,
+                  textInputAction: TextInputAction.search,
+                  onSubmitted: (String query) async {
+                    if (query.trim().isNotEmpty) {
+                      BookService()
+                          .getBooks(query.trim())
+                          .then((List<Book> books) {
+                        Provider.of<BooksProvider>(context, listen: false)
+                            .books = books;
+                      });
+                    }
+                  },
                   decoration: const InputDecoration(
                     hintText: 'Search for books...',
                     border: InputBorder.none,
