@@ -41,7 +41,8 @@ class BookItem extends StatelessWidget {
               "${book.imageLinks['thumbnail']}",
               fit: BoxFit.cover,
               // TODO: add loading builder
-              // TODO: add error builder
+              errorBuilder: (context, error, stackTrace) =>
+                  Container(color: Colors.grey.shade300),
             ),
           ),
           const SizedBox(width: 15.0),
