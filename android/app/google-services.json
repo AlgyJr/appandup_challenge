@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "720844476803",
+    "project_id": "appandup-challenge",
+    "storage_bucket": "appandup-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720844476803:android:9e2f2e9fd95a719838e6b6",
+        "android_client_info": {
+          "package_name": "com.example.appandup_challenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720844476803-n3amb2dgra9f2hebcblmttd49jbj1rk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appandup_challenge",
+            "certificate_hash": "16942d4b3a4d3462e70bba102633b190a0141139"
+          }
+        },
+        {
+          "client_id": "720844476803-c5jhu045ltigk5nbq5aagt9vrd7vdem4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYiiuTHN1O9qGSUWuvHIpjBvUKsuJlnTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720844476803-c5jhu045ltigk5nbq5aagt9vrd7vdem4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "720844476803-j5oe7gmgppk3t6vt4grfcio5mj43blev.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.appandupChallenge"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
