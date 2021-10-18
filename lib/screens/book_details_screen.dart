@@ -26,38 +26,8 @@ class BookDetailsScreen extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 128.0,
-                    decoration: BoxDecoration(
-                      color: Colors.lightBlue,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    clipBehavior: Clip.hardEdge,
-                    child: Image.network(
-                      "${book.imageLinks['thumbnail']}",
-                      fit: BoxFit.cover,
-                      // TODO: add loading builder
-                      errorBuilder: (context, error, stackTrace) =>
-                          Container(color: Colors.grey.shade300),
-                    ),
-                  ),
-                  Flexible(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        InfoLabel(first: 'Title', value: book.title),
-                        InfoLabel(
-                            first: 'Authors', value: book.authors.join(', ')),
-                        InfoLabel(first: 'Publisher', value: book.publisher),
-                        InfoLabel(
-                          first: 'Published date',
-                          value: book.publishedDate?.toString() ?? '',
-                        ),
-                      ],
-                    ),
-                  ),
+                  _buildBookImage(book),
+                  _buildBookProperties(book),
                 ],
               ),
               const SizedBox(height: 15.0),
@@ -71,49 +41,10 @@ class BookDetailsScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // 1
-                      Column(
-                        children: [
-                          Text('${book.ratingsCount} ratings'),
-                          Column(
-                            children: [
-                              Text(
-                                '${book.averageRating}',
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                              const Icon(
-                                Icons.star_outlined,
-                                color: Colors.grey,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      // 2
-                      Column(
-                        children: [
-                          const Text('Page counts'),
-                          Text(
-                            '${book.pageCount}',
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          const Icon(
-                            Icons.menu_book_sharp,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                      // 3
-                      Column(
-                        children: [
-                          const Text('Language'),
-                          Text(
-                            book.language.toUpperCase(),
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                      // 4
+                      _buildRatingsCountBanner(
+                          book.ratingsCount, book.averageRating),
+                      _buildPageCountsBanner(book.pageCount),
+                      _buildLanguageBanner(book.language),
                     ],
                   ),
                 ),
@@ -132,6 +63,91 @@ class BookDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Flexible _buildBookProperties(Book book) {
+    return Flexible(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InfoLabel(first: 'Title', value: book.title),
+          InfoLabel(first: 'Authors', value: book.authors.join(', ')),
+          InfoLabel(first: 'Publisher', value: book.publisher),
+          InfoLabel(
+            first: 'Published date',
+            value: book.publishedDate?.toString() ?? '',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildBookImage(Book book) {
+    return Container(
+      width: 128.0,
+      decoration: BoxDecoration(
+        color: Colors.lightBlue,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      clipBehavior: Clip.hardEdge,
+      child: Image.network(
+        "${book.imageLinks['thumbnail']}",
+        fit: BoxFit.cover,
+        // TODO: add loading builder
+        errorBuilder: (context, error, stackTrace) =>
+            Container(color: Colors.grey.shade300),
+      ),
+    );
+  }
+
+  Column _buildLanguageBanner(String language) {
+    return Column(
+      children: [
+        const Text('Language'),
+        Text(
+          language.toUpperCase(),
+          style: const TextStyle(fontSize: 18),
+        ),
+      ],
+    );
+  }
+
+  Column _buildPageCountsBanner(int pageCount) {
+    return Column(
+      children: [
+        const Text('Page counts'),
+        Text(
+          '$pageCount',
+          style: const TextStyle(fontSize: 18),
+        ),
+        const Icon(
+          Icons.menu_book_sharp,
+          color: Colors.grey,
+        ),
+      ],
+    );
+  }
+
+  Column _buildRatingsCountBanner(int ratingsCount, double averageRating) {
+    return Column(
+      children: [
+        Text('$ratingsCount ratings'),
+        Column(
+          children: [
+            Text(
+              '$averageRating',
+              style: const TextStyle(fontSize: 18),
+            ),
+            const Icon(
+              Icons.star_outlined,
+              color: Colors.grey,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
