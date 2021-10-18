@@ -16,7 +16,7 @@ class BookItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, BookDetailsScreen.routeName,
-            arguments: book);
+            arguments: book.id);
       },
       child: Container(
         height: 200.0,

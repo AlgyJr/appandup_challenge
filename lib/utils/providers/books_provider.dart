@@ -10,4 +10,22 @@ class BooksProvider extends ChangeNotifier {
     _books = books;
     notifyListeners();
   }
+
+  Book findBook(String id) {
+    return _books.firstWhere((book) => book.id == id);
+  }
+
+  void updateFavoriteBook(String bookId, bool isFavorite) {
+    _books.firstWhere((book) => book.id == bookId).isFavorite = isFavorite;
+    notifyListeners();
+  }
+
+  void setUserFavBooks(List<dynamic> booksId) {
+    _books.forEach((book) {
+      if (booksId.contains(book.id)) {
+        book.isFavorite = true;
+      }
+    });
+    notifyListeners();
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:appandup_book/utils/services/auth_service.dart';
+import 'package:appandup_book/utils/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,9 +50,19 @@ class HomeHeader extends StatelessWidget {
                     if (query.trim().isNotEmpty) {
                       BookService()
                           .getBooks(query.trim())
-                          .then((List<Book> books) {
+                          .then((List<Book> books) async {
                         Provider.of<BooksProvider>(context, listen: false)
                             .books = books;
+
+                        final uid =
+                            Provider.of<AuthService>(context, listen: false)
+                                .userId();
+
+                        final favBooksId =
+                            await FirestoreService().getUserFavBooks(uid!);
+
+                        Provider.of<BooksProvider>(context, listen: false)
+                            .setUserFavBooks(favBooksId);
                       });
                     }
                   },

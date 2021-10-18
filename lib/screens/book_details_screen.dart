@@ -1,5 +1,9 @@
 import 'package:appandup_book/models/book.dart';
+import 'package:appandup_book/utils/providers/books_provider.dart';
+import 'package:appandup_book/utils/services/auth_service.dart';
+import 'package:appandup_book/utils/services/firestore_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   static const routeName = '/{id}';
@@ -8,7 +12,9 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final book = ModalRoute.of(context)!.settings.arguments as Book;
+    final bookId = ModalRoute.of(context)!.settings.arguments as String;
+
+    final book = Provider.of<BooksProvider>(context).findBook(bookId);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -62,6 +68,25 @@ class BookDetailsScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final uid = Provider.of<AuthService>(context, listen: false).userId();
+          if (book.isFavorite) {
+            FirestoreService().removeFavoriteBook(uid!, book.id).then((value) {
+              Provider.of<BooksProvider>(context, listen: false)
+                  .updateFavoriteBook(book.id, false);
+            });
+          } else {
+            FirestoreService().addFavoriteBook(uid!, book.id).then((value) {
+              Provider.of<BooksProvider>(context, listen: false)
+                  .updateFavoriteBook(book.id, true);
+            });
+          }
+        },
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        child: Icon(book.isFavorite ? Icons.favorite : Icons.favorite_outline),
       ),
     );
   }
