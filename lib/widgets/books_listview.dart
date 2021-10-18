@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/providers/books_provider.dart';
-import '../utils/services/book_service.dart';
 import '../models/book.dart';
 import 'book_item.dart';
 

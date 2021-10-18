@@ -22,7 +22,7 @@ class _LoginButtonState extends State<CircleBordersButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap(),
+      onTap: () => widget.onTap(),
       onTapDown: (_) {
         setState(() {
           isDown = true;
