@@ -52,7 +52,15 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'App and Up Challenge',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primaryColor: Colors.blue, primarySwatch: Colors.blue),
+        theme: ThemeData(
+          primaryColor: Colors.blue,
+          primarySwatch: Colors.blue,
+          appBarTheme: const AppBarTheme(
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+            elevation: 0.0,
+          ),
+        ),
         routes: {
           HomePage.routeName: (context) =>
               Consumer<AuthService>(builder: (context, authServices, child) {
