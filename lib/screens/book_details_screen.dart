@@ -111,6 +111,10 @@ class BookDetailsScreen extends StatelessWidget {
           language.toUpperCase(),
           style: const TextStyle(fontSize: 18),
         ),
+        const Icon(
+          Icons.language,
+          color: Colors.grey,
+        ),
       ],
     );
   }
